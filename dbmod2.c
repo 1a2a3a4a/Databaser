@@ -70,11 +70,13 @@ Node deleteNode(Node db, char *inputkey){
   while(db != NULL){
     if((strcmp(db->key, inputkey) == 0)){
       if(prev  == NULL){
-	
+	prev = db;
+	free(prev);
 	db = db->next;
 	return db;
       }
       else prev->next = db->next;
+      free(db);
     }
     prev = db;
     db = db->next;

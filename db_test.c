@@ -106,14 +106,7 @@ void testUpdateEntry() {
     }
 }
 
-void welcome();
 
-void testWelcome() {
-    welcome();
-    if (1 /*check result*/) {
-        CU_ASSERT(0);
-    }
-}
 
 int main() {
     CU_pSuite pSuite = NULL;
