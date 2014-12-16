@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <CUnit/Basic.h>
+#include <string.h>
 #include "dbmod.h"
+#include "dbmod.c"
 
 /*
  * CUnit Test Suite
@@ -18,6 +20,7 @@ int clean_suite(void) {
 void testCreateNode() {
   char* key = "Anna";
   char* value = "10";
+
   Node test = createNode(key, value);
   CU_ASSERT(test != NULL);
   CU_ASSERT(strcmp(test->key, "Anna") == 0);
@@ -30,32 +33,25 @@ void testCreateNode() {
 void testDbFree() {
   char* key = "Anna";
   char* value = "10";
-  Node db = createNode(key, value);
+  Node db = NULL;
   insertNode(createNode(key,value), db);  
   dbFree(db);
-  /*asserta om det är frigjort */
+  CU_ASSERT(db == NULL);
     
 }
 
 void testDeleteNode() {
   Node db = NULL;
-  Node db2 = NULL;
   char* key = "Anna";
   char* value = "10";
   Node test = createNode(key, value);
-  char* key2 = "David";
-  char* value2 = "10";
-  Node test2 = createNode(key2, value2);
+  db = insertNode(test,db);
 
-
-  db2 =  insertNode(test, db);
-  db =  insertNode(test2, db);
-
-  DeleteNode(db, key2);
-
+  db = deleteNode(db, key);
+  
   CU_ASSERT(db == NULL);
-  CU_ASSERT(db2 != NULL);
- 
+  free(test);
+  
 }
 
 void testInsertNode() {
@@ -72,17 +68,22 @@ void testInsertNode() {
   CU_ASSERT(db->right == NULL);
 
 
-  dbFree(db);
+  free(test);
 
 }
 
 /* hur testar man print funktioner???? */
 void testPrintDatabase() {
-  Node db;
+  Node db = NULL;
+  char* key = "Anna";
+  char* value = "10";
+  Node test = createNode(key, value);
+  db = insertNode(test, db);
   printDatabase(db);
   if (1 /*check result*/) {
     CU_ASSERT(1);
   }
+  free(test);
 }
 
 void testQueryValue() {
@@ -92,10 +93,10 @@ void testQueryValue() {
   Node test = createNode(key, value);
   db = insertNode(test, db);
 
-  char *test = queryValue(db, key);
-  CU_ASSERT(test, value);
+  char *chartest = queryValue(db, key);
+  CU_ASSERT(chartest == value);
 
-  dbFree(db);
+  free(test);
 }
 
 void testSearch() {
@@ -103,29 +104,29 @@ void testSearch() {
   char* key = "Anna";
   char* value = "10";
   Node test = createNode(key, value);
-  db = insertNode(test, db);
+  db = insertNode(test,  db);
 
-  int test = search(db, key);
-  CU_ASSERT(1,test);
+  int testint = search(db, key);
+  CU_ASSERT(1 == testint);
+  
 
-  dbFree(db);
+  free(test);
 }
 
 void testUpdateValue() {
-
   Node db = NULL;
   char* key = "Anna";
   char* value = "10";
+  
   Node test = createNode(key, value);
   db = insertNode(test, db);
   
-  char* updateValue = "20";
-  db =  updateValue(db, key, updateValue);
-  CU_ASSERT(strcmp(db->value, updateValue));
-
-  dbFree(db);
-
+  char* newval = "20";
+  db = updateValue(db, key,  newval);
   
+  CU_ASSERT(strcmp(db->value, newval) == 0);
+
+  free(db);
 }
 
 
@@ -152,11 +153,13 @@ int main() {
       (NULL == CU_add_test(pSuite, "testPrintDatabase", testPrintDatabase)) ||
       (NULL == CU_add_test(pSuite, "testQueryValue", testQueryValue)) ||
       (NULL == CU_add_test(pSuite, "testSearch", testSearch)) ||
-      (NULL == CU_add_test(pSuite, "testUpdateValue", testUpdateValue)) ||
-      (NULL == CU_add_test(pSuite, "testGetSuccessor", testGetSuccessor))) {
+      (NULL == CU_add_test(pSuite, "testUpdateValue", testUpdateValue))
+      ) {
     CU_cleanup_registry();
     return CU_get_error();
   }
+
+ 
 
   /* Run all tests using the CUnit Basic interface */
   CU_basic_set_mode(CU_BRM_VERBOSE);
