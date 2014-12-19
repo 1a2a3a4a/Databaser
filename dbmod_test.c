@@ -121,12 +121,14 @@ void testUpdateValue() {
   Node test = createNode(key, value);
   db = insertNode(test, db);
   
-  char* newval = "20";
-  db = updateValue(db, key,  newval);
+  char* newval = malloc(3);
+  newval = "20";
+  db = updateValue(db, key, newval);
   
   CU_ASSERT(strcmp(db->value, newval) == 0);
 
   free(db);
+  
 }
 
 

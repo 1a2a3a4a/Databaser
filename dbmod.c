@@ -84,7 +84,9 @@ Node updateValue(Node db, char *inputkey, char *inputvalue){
   }
   else if ((strcmp(db->key, inputkey)) == 0) {
     free(db->value);
-    strcpy(db->value,inputvalue);
+   
+    //strcpy(db->value, (inputvalue));
+    db->value = inputvalue;
     return db;
   }
   else if ((strcmp(db->key, inputkey)) < 0 ){
@@ -140,7 +142,6 @@ void dbFree(Node db){
     return;
   }
   else {
-   
     dbFree(db->right);
     dbFree(db->left);
     free(db->key);
