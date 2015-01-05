@@ -22,11 +22,11 @@ void testCreateNode() {
   char* value = "10";
 
   Node test = createNode(key, value);
-  CU_ASSERT(test != NULL);
-  CU_ASSERT(strcmp(test->key, "Anna") == 0);
-  CU_ASSERT(strcmp(test->value, "10") == 0);
-  CU_ASSERT(test->left == NULL);
-  CU_ASSERT(test->right == NULL);
+  CU_ASSERT_PTR_NOT_NULL(test);
+  CU_ASSERT_EQUAL(strcmp(test->key, "Anna"), 0);
+  CU_ASSERT_EQUAL(strcmp(test->value, "10"), 0);
+  CU_ASSERT_PTR_NULL(test->left);
+  CU_ASSERT_PTR_NULL(test->right);
   free(test);
 }
 
@@ -34,10 +34,10 @@ void testDbFree() {
   char* key = "Anna";
   char* value = "10";
   Node db = NULL;
+  
   insertNode(createNode(key,value), db);  
   dbFree(db);
-  CU_ASSERT(db == NULL);
-    
+  CU_ASSERT_PTR_NULL(db);
 }
 
 void testDeleteNode() {
@@ -49,9 +49,8 @@ void testDeleteNode() {
 
   db = deleteNode(db, key);
   
-  CU_ASSERT(db == NULL);
+  CU_ASSERT_PTR_NULL(db);
   free(test);
-  
 }
 
 void testInsertNode() {
@@ -61,15 +60,12 @@ void testInsertNode() {
   Node test = createNode(key, value);
   db = insertNode(test, db);
 
-  CU_ASSERT(db != NULL);
+  CU_ASSERT_PTR_NOT_NULL(db);
   CU_ASSERT(strcmp(db->key, "Anna") == 0);
   CU_ASSERT(strcmp(db->value, "10") == 0);
-  CU_ASSERT(db->left == NULL);
-  CU_ASSERT(db->right == NULL);
-
-
+  CU_ASSERT_PTR_NULL(db->left);
+  CU_ASSERT_PTR_NULL(db->right);
   free(test);
-
 }
 
 /* hur testar man print funktioner???? */
