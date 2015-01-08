@@ -17,21 +17,12 @@ int clean_suite(void) {
 int checkArgumentFile(int argc, char* argv[]);
 
 void testCheckArgumentFile() {
-    int argc;
-    char** argv;
+    int argc = 1;
+    char* argv[] = {"./db"};
+    int expected = 0;
     int result = checkArgumentFile(argc, argv);
-    if (1 /*check result*/) {
-        CU_ASSERT(0);
-    }
-}
 
-void chooseOp();
-
-void testChooseOp() {
-    chooseOp();
-    if (1 /*check result*/) {
-        CU_ASSERT(0);
-    }
+    CU_ASSERT_EQUAL(result, expected);
 }
 
 Node database(Node db);
@@ -67,11 +58,14 @@ void testQuery() {
 Node readDatabase(char* filename);
 
 void testReadDatabase() {
-    char* filename;
+    char* filename = "someTestFile";
+    char* expectKey = "Anna";
+    char* expectValue = "26";
     Node result = readDatabase(filename);
-    if (1 /*check result*/) {
-        CU_ASSERT(0);
-    }
+
+    CU_ASSERT_PTR_NOT_NULL(result);
+    CU_ASSERT_STRING_EQUAL(result->key, expectKey);
+    CU_ASSERT_STRING_EQUAL(result->value, expectValue);
 }
 
 void readline(char* dest, int n, FILE* source);
