@@ -66,7 +66,7 @@ Node insertNode(Node newnode, Node db){
 Node deleteNode(Node db, char *inputkey){
   Node prev = NULL;
   Node ret = db;
-  Node freedb = NULL;
+ 
   while(db != NULL){
     if((strcmp(db->key, inputkey) == 0)){
       if(prev  == NULL){

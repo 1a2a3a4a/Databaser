@@ -49,8 +49,8 @@ void testDeleteNode() {
 
   db = deleteNode(db, key);
   
-  CU_ASSERT_PTR_NULL(db);
-  free(test);
+    CU_ASSERT_PTR_NULL(db);
+
 }
 
 void testInsertNode() {
@@ -104,8 +104,6 @@ void testSearch() {
 
   int testint = search(db, key);
   CU_ASSERT(1 == testint);
-  
-
   free(test);
 }
 
