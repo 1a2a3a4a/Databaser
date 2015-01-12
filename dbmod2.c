@@ -95,6 +95,7 @@ void printDatabase(Node db){
 }
 
 void dbFree(Node db){
+  /*
   if (db != NULL){
     if(db->next == NULL){
       free(db->key);
@@ -106,6 +107,14 @@ void dbFree(Node db){
     free(db->value);
     free(db);
   }
+  */
+  if(db != NULL){
+    free(db->value);
+    free(db->key);
+    dbFree(db->next);
+    free(db);
+  }
+ 
 }
 
   
