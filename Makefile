@@ -2,10 +2,10 @@ CC = gcc
 FLAGS = -Wall -ggdb -std=c99
 
 dbt: db.o dbmod.o 
-	$(CC) $(FLAGS) $^ -o  $@
+	$(CC) $(FLAGS)  $^ -o  $@
 
 dbl: db.o dbmod2.o 
-	$(CC) $(FLAGS) $^ -o  $@
+	$(CC) $(FLAGS)  $^ -o  $@
 
 
 %.o: %.c %.h
@@ -13,12 +13,12 @@ dbl: db.o dbmod2.o
 
 db.o: db.c dbmod.h
 	$(CC) $(FLAGS) -c  db.c 
-.PHONY: run
+.PHONY: runt
 
 runt: dbt SWE.db 
 	./dbt SWE.db
 
-runl: dbl SWE.db 
+runl: db SWE.db 
 	./dbl SWE.db
 
 
@@ -26,18 +26,15 @@ runl: dbl SWE.db
 mem: dbt 
 	valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all  ./db SWE.db
 
-test: test_dbmod2 test_dbmod test_db
+test: test_dbmod2 test_dbmod 
 
-test_dbmod2: db
+test_dbmod2: dbl
 	$(CC) $(FLAGS) dbmod2_test.c    -o dbmod2_unittests -lcunit
 	./dbmod2_unittests
 
-test_dbmod:  db
+test_dbmod:  dbt
 	$(CC) $(FLAGS) dbmod_test.c    -o dbmod_unittests -lcunit
 	./dbmod_unittests
-test_db:     db
-	$(CC) $(FLAGS) db_test.c    -o db_unittests -lcunit
-	./db_unittests
 
 
 clean: 

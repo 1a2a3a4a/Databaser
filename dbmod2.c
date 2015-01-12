@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include "dbmod.h"
 
 typedef struct node {
   char *key;

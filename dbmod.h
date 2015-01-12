@@ -32,6 +32,7 @@ void printDatabase(Node db);
  * 1 if inputkey exists in db else 0
  * @param db search in db
  * @param inputkey key to be searched for
+ * @return 1 if inputkey exists in db else 0
  */
 int search(Node db, char *inputkey);
 

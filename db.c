@@ -8,7 +8,7 @@
  * Stores one line from stream
  * @param dest where input from stream is stored
  * @param n number of bytes to be stored
- * @param stream to read from
+ * @param source stream to read from
  */
 
 
@@ -69,7 +69,7 @@ void welcome() {
 /**
  * Checks if user input file when running program
  * @param argc number of inputs
- * @param array of inputs
+ * @param argv array of inputs
  * @return 1 if more than one input else 0
  */
 
@@ -249,6 +249,8 @@ Node database(Node db){
  * @param argv array of inputs, the second input must be the database file
  */
 
+
+
 int main(int argc, char *argv[]){
   
   if ((checkArgumentFile(argc,argv)) == 0) {
@@ -263,3 +265,4 @@ int main(int argc, char *argv[]){
   dbFree(db);
   return 0;
 }
+

@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <CUnit/Basic.h>
 #include "dbmod.h"
-
+#include "dbmod.c"
+#include "db.c"
 /*
  * CUnit Test Suite
  */
@@ -26,35 +27,6 @@ void testCheckArgumentFile() {
     CU_ASSERT_EQUAL(result, expected);
 }
 
-void testDatabase() {
-    Node db;
-    Node result = database(db);
-    if (1 /*check result*/) {
-        CU_ASSERT(0);
-    }
-}
-
-Node newEntry(Node db);
-
-void testNewEntry() {
-    Node db;
-    Node result = newEntry(db);
-    if (1 /*check result*/) {
-        CU_ASSERT(0);
-    }
-}
-
-void query(Node db);
-
-void testQuery() {
-  Node db = NULL;
-  db = insertNode(createNode("Anna", "key"), db);
-  query(db);
-  if (1) {
-    CU_ASSERT(1);
-  }
-   
-}
 
 Node readDatabase(char* filename);
 
@@ -69,37 +41,6 @@ void testReadDatabase() {
     CU_ASSERT(strcmp(result->value, expectValue) == 0);
 }
 
-void readline(char* dest, int n, FILE* source);
-
-void testReadline() {
-    char* dest;
-    int n;
-    FILE* source;
-    readline(dest, n, source);
-    if (1 /*check result*/) {
-        CU_ASSERT(0);
-    }
-}
-
-Node removeEntry(Node db);
-
-void testRemoveEntry() {
-    Node db;
-    Node result = removeEntry(db);
-    if (1 /*check result*/) {
-        CU_ASSERT(0);
-    }
-}
-
-Node updateEntry(Node db);
-
-void testUpdateEntry() {
-    Node db;
-    Node result = updateEntry(db);
-    if (1 /*check result*/) {
-        CU_ASSERT(0);
-    }
-}
 
 
 
@@ -119,14 +60,7 @@ int main() {
 
     /* Add the tests to the suite */
     if ((NULL == CU_add_test(pSuite, "testCheckArgumentFile", testCheckArgumentFile)) ||
-           
-            (NULL == CU_add_test(pSuite, "testDatabase", testDatabase)) ||
-            (NULL == CU_add_test(pSuite, "testNewEntry", testNewEntry)) ||
-            (NULL == CU_add_test(pSuite, "testQuery", testQuery)) ||
-            (NULL == CU_add_test(pSuite, "testReadDatabase", testReadDatabase)) ||
-            (NULL == CU_add_test(pSuite, "testReadline", testReadline)) ||
-            (NULL == CU_add_test(pSuite, "testRemoveEntry", testRemoveEntry)) ||
-            (NULL == CU_add_test(pSuite, "testUpdateEntry", testUpdateEntry)) ||
+	(NULL == CU_add_test(pSuite, "testReadDatabase", testReadDatabase))
 	) {
         CU_cleanup_registry();
         return CU_get_error();
