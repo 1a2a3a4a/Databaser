@@ -10,12 +10,6 @@ typedef struct node{
   struct node *right;
 } *Node;
 
-/**
- * Initializes a new tree node with key and value   
- * @param key String that will be set as the key of the node 
- * @param value String that will be set as the value of the node 
- * @return Pointer to tree  
- */
 
 Node createNode(char *key, char *value){
   Node treeNode = malloc(sizeof(struct node));
@@ -26,13 +20,6 @@ Node createNode(char *key, char *value){
   return treeNode;
  
 }
-
-/**
- * Adds an initialized node to the existing tree    
- * @param treeNode The node to be added 
- * @param db The already existing tree 
- * @return Pointer to tree   
- */
 
 Node insertNode(Node treeNode, Node db){
   if (db == NULL){
@@ -47,11 +34,6 @@ Node insertNode(Node treeNode, Node db){
   return db;
 }
 
-/**
- * Prints out the existing database with keys and its values to the console
- * @param db The existing tree   
- */
-
 //preorder
 void printDatabase(Node db) {
   Node cursor;
@@ -64,13 +46,6 @@ void printDatabase(Node db) {
     
   }
 }
-
-/**
- * Searches if a certain key exists in the tree     
- * @param db The already existing tree 
- * @param  inputkey String to search for
- * @return 1 if key can be found, 0 if not 
- */
 
 int search(Node db, char *inputkey) { // returns 1 if key exists else 0
   if (db == NULL){
@@ -86,13 +61,6 @@ int search(Node db, char *inputkey) { // returns 1 if key exists else 0
     return search(db->right, inputkey);
   }
 }
-
-/**
- * Searches if a certain key exists in the tree     
- * @param db The already existing tree 
- * @param inputkey String to search for
- * @return Pointer to char
- */
 
 char *queryValue(Node db, char *inputkey){
   if (db == NULL) {
@@ -110,13 +78,6 @@ char *queryValue(Node db, char *inputkey){
   }
 }
 
-/**
- * Updates the value of an existing node      
- * @param db The already existing tree 
- * @param inputkey The key we want to update value on
- * @param inputvalue The updated value  
- * @return Pointer to tree
- */
 
 Node updateValue(Node db, char *inputkey, char *inputvalue){
   if (db == NULL){
@@ -144,13 +105,6 @@ Node getSuccessor(Node db){
     db = db->right;
   return db;
 }
-
-/**
- * Delete a node from the tree    
- * @param db The already existing tree 
- * @param inputkey The key to the node that we want to delete  
- * @return Pointer to tree
- */
 
 Node deleteNode(Node db, char *inputkey){
   if (db == NULL){
